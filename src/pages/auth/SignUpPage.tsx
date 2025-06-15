@@ -14,6 +14,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 const signUpSchema = z.object({
   firstName: z.string().min(1, { message: "First name is required." }),
@@ -25,6 +28,7 @@ const signUpSchema = z.object({
 type SignUpFormValues = z.infer<typeof signUpSchema>;
 
 export default function SignUpPage() {
+    const [isLoading, setIsLoading] = useState(false);
     const form = useForm<SignUpFormValues>({
         resolver: zodResolver(signUpSchema),
         defaultValues: {
@@ -35,9 +39,26 @@ export default function SignUpPage() {
         },
     });
 
-    const onSubmit = (data: SignUpFormValues) => {
-        console.log(data);
-        toast.info("Sign up functionality coming soon!");
+    const onSubmit = async (data: SignUpFormValues) => {
+        setIsLoading(true);
+        const { error } = await supabase.auth.signUp({
+            email: data.email,
+            password: data.password,
+            options: {
+                data: {
+                    first_name: data.firstName,
+                    last_name: data.lastName,
+                },
+                emailRedirectTo: `${window.location.origin}/`,
+            }
+        });
+        setIsLoading(false);
+
+        if (error) {
+            toast.error(error.message);
+        } else {
+            toast.info("Check your email for a verification link to complete your sign-up.");
+        }
     };
 
   return (
@@ -104,7 +125,8 @@ export default function SignUpPage() {
                         </FormItem>
                     )}
                 />
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Create an account
                 </Button>
                 <Button variant="outline" className="w-full" type="button" onClick={() => toast.info("Coming soon!")}>
