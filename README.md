@@ -1,8 +1,30 @@
-# Welcome to your Lovable project
 
-## Project info
+# Aegis AI - Security Dashboard
 
-**URL**: https://lovable.dev/projects/3a26582c-1c31-44e9-a31d-bcf11c293d11
+Welcome to Aegis AI, a modern web application for monitoring digital assets and managing security findings. This dashboard provides a centralized view of your organization's security posture, allowing teams to track vulnerabilities, manage assets, and respond to threats effectively.
+
+This project was built with [Lovable](https://lovable.dev).
+
+## ✨ Features
+
+- **Dashboard Overview:** A central hub for a quick glance at the most critical security metrics.
+- **Findings Management:** A detailed list of all identified security findings. Users can drill down into each finding for more details.
+- **Asset Management:** Easily add, view, and manage all monitored digital assets, such as servers, databases, applications, and domains.
+- **Reporting:** (Coming Soon) Generate and view comprehensive security reports.
+- **User Settings:** (Coming Soon) Customize user preferences and application settings.
+
+## 🛠️ Tech Stack
+
+This project is built with a modern, robust stack:
+
+- **Framework:** [React](https://react.dev/) with [Vite](https://vitejs.dev/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **UI:** [shadcn/ui](https://ui.shadcn.com/) & [Tailwind CSS](https://tailwindcss.com/)
+- **Routing:** [React Router](https://reactrouter.com/)
+- **Forms:** [React Hook Form](https://react-hook-form.com/) & [Zod](https://zod.dev/) for validation
+- **Icons:** [Lucide React](https://lucide.dev/)
+
+---
 
 ## How can I edit this code?
 
@@ -49,16 +71,6 @@ npm run dev
 - Select the "Codespaces" tab.
 - Click on "New codespace" to launch a new Codespace environment.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
 
 ## How can I deploy this project?
 
