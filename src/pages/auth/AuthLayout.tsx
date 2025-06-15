@@ -1,12 +1,13 @@
 
-import { Outlet, Link, Navigate } from "react-router-dom";
+import { Outlet, Link, Navigate, useLocation } from "react-router-dom";
 import { Shield, CheckCircle } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
 export default function AuthLayout() {
   const { user } = useAuth();
+  const location = useLocation();
 
-  if (user) {
+  if (user && location.pathname !== '/update-password') {
     return <Navigate to="/" replace />;
   }
 

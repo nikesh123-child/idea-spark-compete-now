@@ -17,6 +17,8 @@ import AuthLayout from "./pages/auth/AuthLayout";
 import LoginPage from "./pages/auth/LoginPage";
 import SignUpPage from "./pages/auth/SignUpPage";
 import { AuthProvider } from "./contexts/AuthContext";
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
+import UpdatePasswordPage from "./pages/auth/UpdatePasswordPage";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +42,8 @@ const App = () => (
               <Route element={<AuthLayout />}>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignUpPage />} />
+                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                <Route path="/update-password" element={<UpdatePasswordPage />} />
               </Route>
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

@@ -1,4 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -14,81 +15,78 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Loader2, Eye, EyeOff } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
-const loginSchema = z.object({
-  email: z.string().email({ message: "Invalid email address." }),
-  password: z.string().min(1, { message: "Password is required." }),
+const updatePasswordSchema = z.object({
+  password: z.string().min(8, { message: "Password must be at least 8 characters." }),
 });
 
-type LoginFormValues = z.infer<typeof loginSchema>;
+type UpdatePasswordFormValues = z.infer<typeof updatePasswordSchema>;
 
-export default function LoginPage() {
+export default function UpdatePasswordPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const { session, loading } = useAuth();
 
-  const form = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+  useEffect(() => {
+    if (!loading && !session) {
+      toast.error("Invalid or expired password reset link.");
+      navigate("/login", { replace: true });
+    }
+  }, [session, loading, navigate]);
+
+  const form = useForm<UpdatePasswordFormValues>({
+    resolver: zodResolver(updatePasswordSchema),
     defaultValues: {
-      email: "",
       password: "",
     },
   });
 
-  const onSubmit = async (data: LoginFormValues) => {
+  const onSubmit = async (data: UpdatePasswordFormValues) => {
     setIsSubmitting(true);
-    const { error } = await supabase.auth.signInWithPassword({
-      email: data.email,
+    const { error } = await supabase.auth.updateUser({
       password: data.password,
     });
-    setIsSubmitting(false);
-
+    
     if (error) {
+      setIsSubmitting(false);
       toast.error(error.message);
     } else {
-      toast.success("Logged in successfully!");
-      navigate("/");
+      toast.success("Password updated successfully! Please login.");
+      await supabase.auth.signOut();
+      navigate("/login", { replace: true });
     }
   };
 
-  const isLoading = isSubmitting;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto grid w-[350px] gap-6">
+            <Loader2 className="mx-auto h-12 w-12 animate-spin" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
       <div className="grid gap-2 text-center">
-        <h1 className="text-3xl font-bold">Login</h1>
+        <h1 className="text-3xl font-bold">Update Password</h1>
         <p className="text-balance text-muted-foreground">
-          Enter your email below to login to your account
+          Enter your new password below.
         </p>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
           <FormField
             control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input placeholder="m@example.com" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
             name="password"
             render={({ field }) => (
               <FormItem>
-                 <div className="flex items-center">
-                  <FormLabel>Password</FormLabel>
-                  <Link to="/forgot-password" className="ml-auto inline-block text-sm underline">
-                      Forgot your password?
-                  </Link>
-                </div>
+                <FormLabel>New Password</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Input
@@ -117,18 +115,12 @@ export default function LoginPage() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button type="submit" className="w-full" disabled={isSubmitting}>
             {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Login
+            Update Password
           </Button>
         </form>
       </Form>
-      <div className="mt-4 text-center text-sm">
-        Don&apos;t have an account?{" "}
-        <Link to="/signup" className="underline">
-          Sign up
-        </Link>
-      </div>
     </>
   );
 }
