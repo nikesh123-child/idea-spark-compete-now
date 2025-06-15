@@ -1,7 +1,10 @@
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Settings as SettingsIcon } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 
 export default function Settings() {
   return (
@@ -16,20 +19,72 @@ export default function Settings() {
         </div>
       </header>
       <main className="flex-1 p-4 sm:px-6 sm:py-0 space-y-4">
-        <Card>
-          <CardHeader>
-            <CardTitle>Settings</CardTitle>
-            <CardDescription>
-              This section is under construction.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex items-center justify-center h-64">
-            <div className="text-center text-muted-foreground">
-              <SettingsIcon className="h-16 w-16 mx-auto mb-4" />
-              <p>Settings management will be available soon.</p>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>General</CardTitle>
+              <CardDescription>
+                General application settings.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="dark-mode" className="flex flex-col space-y-1">
+                  <span>Dark Mode</span>
+                  <span className="font-normal leading-snug text-muted-foreground">
+                    Enable or disable dark mode.
+                  </span>
+                </Label>
+                <Switch id="dark-mode" />
+              </div>
+            </CardContent>
+            <CardFooter className="border-t px-6 py-4">
+              <Button>Save</Button>
+            </CardFooter>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Notifications</CardTitle>
+              <CardDescription>
+                Manage how you receive notifications.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="email-notifications" className="flex flex-col space-y-1">
+                  <span>Email Notifications</span>
+                  <span className="font-normal leading-snug text-muted-foreground">
+                    Receive notifications about new findings via email.
+                  </span>
+                </Label>
+                <Switch id="email-notifications" defaultChecked />
+              </div>
+            </CardContent>
+             <CardFooter className="border-t px-6 py-4">
+              <Button>Save</Button>
+            </CardFooter>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>API</CardTitle>
+              <CardDescription>
+                Manage your API keys for integrations.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                <Label htmlFor="api-key">API Key</Label>
+                <Input id="api-key" placeholder="Your API Key" defaultValue="agt-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" readOnly />
+                <p className="text-sm text-muted-foreground">Use this key to integrate with other services.</p>
+              </div>
+            </CardContent>
+             <CardFooter className="border-t px-6 py-4">
+              <Button variant="secondary">Generate New Key</Button>
+            </CardFooter>
+          </Card>
+        </div>
       </main>
     </>
   );

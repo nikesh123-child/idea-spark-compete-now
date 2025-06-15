@@ -10,48 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-
-const findings: {
-  id: string;
-  vulnerability: string;
-  status: string;
-  severity: "Critical" | "High" | "Medium";
-}[] = [
-  {
-    id: "FIN-001",
-    vulnerability: "Publicly Accessible Database with PII",
-    status: "Open",
-    severity: "Critical",
-  },
-  {
-    id: "FIN-002",
-    vulnerability: "Outdated SSL/TLS Protocol",
-    status: "Open",
-    severity: "High",
-  },
-  {
-    id: "FIN-003",
-    vulnerability: "SQL Injection",
-    status: "Closed",
-    severity: "High",
-  },
-  {
-    id: "FIN-004",
-    vulnerability: "Cross-Site Scripting (XSS)",
-    status: "Open",
-    severity: "Medium",
-  },
-];
-
-const severityVariantMap: {
-  Critical: "destructive";
-  High: "destructive";
-  Medium: "default";
-} = {
-  Critical: "destructive",
-  High: "destructive",
-  Medium: "default",
-};
+import { findings, severityVariantMap } from "@/data/findings";
 
 export default function Findings() {
   return (

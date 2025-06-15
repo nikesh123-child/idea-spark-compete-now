@@ -11,6 +11,9 @@ import { Badge } from "@/components/ui/badge";
 import { LayoutDashboard, ShieldAlert, FileText, Settings, Rocket } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link, useLocation } from "react-router-dom";
+import { findings } from "@/data/findings";
+
+const openFindingsCount = findings.filter((f) => f.status === "Open").length;
 
 const menuItems = [
   {
@@ -22,7 +25,7 @@ const menuItems = [
     title: "Findings",
     url: "/findings",
     icon: ShieldAlert,
-    label: "1",
+    label: openFindingsCount > 0 ? String(openFindingsCount) : undefined,
   },
   {
     title: "Reports",
