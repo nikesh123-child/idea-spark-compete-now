@@ -11,8 +11,15 @@ import {
 } from "@/components/ui/table";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { findings, severityVariantMap } from "@/data/findings";
+import { useNavigate } from "react-router-dom";
 
 export default function Findings() {
+  const navigate = useNavigate();
+
+  const handleRowClick = (findingId: string) => {
+    navigate(`/findings/${findingId}`);
+  };
+
   return (
     <>
       <header className="sticky top-0 z-30 flex h-14 items-center justify-between gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6 sm:justify-start">
@@ -41,7 +48,11 @@ export default function Findings() {
               </TableHeader>
               <TableBody>
                 {findings.map((finding) => (
-                  <TableRow key={finding.id}>
+                  <TableRow
+                    key={finding.id}
+                    className="cursor-pointer"
+                    onClick={() => handleRowClick(finding.id)}
+                  >
                     <TableCell className="font-medium">{finding.id}</TableCell>
                     <TableCell>{finding.vulnerability}</TableCell>
                     <TableCell>{finding.status}</TableCell>

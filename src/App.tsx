@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
 import Findings from "./pages/Findings";
+import FindingDetail from "./pages/FindingDetail";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 import { ThemeProvider } from "./components/ThemeProvider";
@@ -25,6 +26,7 @@ const App = () => (
             <Route element={<Layout />}>
               <Route path="/" element={<Index />} />
               <Route path="/findings" element={<Findings />} />
+              <Route path="/findings/:findingId" element={<FindingDetail />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/settings" element={<Settings />} />
             </Route>
