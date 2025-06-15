@@ -34,7 +34,10 @@ export default function Assets() {
     const newId = `ASSET-${String(assets.length + 1).padStart(3, "0")}`;
     const newAsset: Asset = {
       id: newId,
-      ...data,
+      name: data.name,
+      type: data.type,
+      owner: data.owner,
+      risk: data.risk,
     };
     setAssets((prevAssets) => [...prevAssets, newAsset]);
     setIsDialogOpen(false);
