@@ -1,7 +1,7 @@
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Printer } from "lucide-react";
+import { Printer, Mail } from "lucide-react";
 import { findings, Severity } from "@/data/findings";
 import { Button } from "@/components/ui/button";
 
@@ -16,6 +16,27 @@ export default function Reports() {
     window.print();
   };
 
+  const handleSendEmail = () => {
+    const subject = "Security Findings Report";
+    const body = `
+Hello,
+
+Please find the security report summary below:
+
+Summary of Open Findings:
+- Critical: ${findingsBySeverity.Critical || 0}
+- High: ${findingsBySeverity.High || 0}
+- Medium: ${findingsBySeverity.Medium || 0}
+
+Open Findings Details:
+${openFindings.map(f => `- ${f.vulnerability} (ID: ${f.id}, Severity: ${f.severity})`).join('\n')}
+
+Generated on: ${new Date().toLocaleDateString()}
+    `.trim();
+
+    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
   return (
     <>
       <header className="sticky top-0 z-30 flex h-14 items-center justify-between gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6 sm:justify-start print:hidden">
@@ -26,7 +47,11 @@ export default function Reports() {
             Generate and view security reports.
           </p>
         </div>
-        <div className="ml-auto">
+        <div className="ml-auto flex items-center gap-2">
+          <Button variant="outline" onClick={handleSendEmail}>
+            <Mail className="mr-2 h-4 w-4" />
+            Send Email
+          </Button>
           <Button onClick={handlePrint}>
             <Printer className="mr-2 h-4 w-4" />
             Print Report
