@@ -7,18 +7,37 @@ This project was built with [Lovable](https://lovable.dev).
 
 ## ✨ Features
 
-- **Dashboard Overview:** A central hub for a quick glance at the most critical security metrics.
-- **Findings Management:** A detailed list of all identified security findings. Users can drill down into each finding for more details.
-- **Asset Management:** Easily add, view, and manage all monitored digital assets, such as servers, databases, applications, and domains.
-- **Reporting:** (Coming Soon) Generate and view comprehensive security reports.
-- **User Settings:** (Coming Soon) Customize user preferences and application settings.
+Our security dashboard is packed with features designed to give you a comprehensive overview of your security landscape:
+
+- **Secure User Authentication:** The application includes a complete authentication system powered by Supabase. Users can sign up, log in, and reset their passwords securely.
+
+- **Dashboard Overview:** Get a high-level view of your security posture as soon as you log in. The dashboard displays key metrics like:
+  - Total number of security findings.
+  - A breakdown of findings by severity (Critical, High, Medium, Low).
+  - A summary of your monitored digital assets.
+  - Recent activity to keep you updated on the latest events.
+
+- **Findings Management:** A dedicated section to manage all identified security vulnerabilities. You can:
+  - View a detailed list of all findings.
+  - Search and filter findings to quickly locate specific issues.
+  - Drill down into each finding for in-depth details, including description, severity, status, and the affected assets.
+
+- **Asset Management:** Keep track of all your digital assets in one place.
+  - Easily add new assets such as servers, applications, or domains.
+  - View a comprehensive list of all your managed assets.
+  - (Coming soon) Associate assets with specific findings for better context.
+
+- **Reporting:** (Coming Soon) Generate and download comprehensive security reports to share with your team and stakeholders.
+
+- **User Settings:** (Coming Soon) Customize your profile and application preferences.
 
 ## 🛠️ Tech Stack
 
-This project is built with a modern, robust stack:
+This project is built with a modern, robust stack designed for performance and scalability:
 
 - **Framework:** [React](https://react.dev/) with [Vite](https://vitejs.dev/)
 - **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Backend & Authentication:** [Supabase](https://supabase.com/)
 - **UI:** [shadcn/ui](https://ui.shadcn.com/) & [Tailwind CSS](https://tailwindcss.com/)
 - **Routing:** [React Router](https://reactrouter.com/)
 - **Forms:** [React Hook Form](https://react-hook-form.com/) & [Zod](https://zod.dev/) for validation
