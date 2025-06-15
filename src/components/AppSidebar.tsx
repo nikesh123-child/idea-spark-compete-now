@@ -1,4 +1,3 @@
-
 import {
   Sidebar,
   SidebarContent,
@@ -8,7 +7,7 @@ import {
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
 import { Badge } from "@/components/ui/badge";
-import { LayoutDashboard, ShieldAlert, FileText, Settings, Rocket } from "lucide-react";
+import { LayoutDashboard, ShieldAlert, FileText, Settings, Rocket, Server } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link, useLocation } from "react-router-dom";
 import { findings } from "@/data/findings";
@@ -26,6 +25,11 @@ const menuItems = [
     url: "/findings",
     icon: ShieldAlert,
     label: openFindingsCount > 0 ? String(openFindingsCount) : undefined,
+  },
+  {
+    title: "Assets",
+    url: "/assets",
+    icon: Server,
   },
   {
     title: "Reports",

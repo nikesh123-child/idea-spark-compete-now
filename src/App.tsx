@@ -12,6 +12,7 @@ import FindingDetail from "./pages/FindingDetail";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 import { ThemeProvider } from "./components/ThemeProvider";
+import Assets from "./pages/Assets";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/findings" element={<Findings />} />
               <Route path="/findings/:findingId" element={<FindingDetail />} />
+              <Route path="/assets" element={<Assets />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/settings" element={<Settings />} />
             </Route>
