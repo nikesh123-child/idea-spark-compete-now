@@ -27,7 +27,6 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -55,22 +54,7 @@ export default function LoginPage() {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    setIsGoogleLoading(true);
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/`,
-      },
-    });
-
-    if (error) {
-      toast.error(error.message);
-      setIsGoogleLoading(false);
-    }
-  };
-
-  const isLoading = isSubmitting || isGoogleLoading;
+  const isLoading = isSubmitting;
 
   return (
     <>
@@ -137,10 +121,6 @@ export default function LoginPage() {
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Login
-          </Button>
-          <Button variant="outline" className="w-full" type="button" onClick={handleGoogleLogin} disabled={isLoading}>
-            {isGoogleLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Login with Google
           </Button>
         </form>
       </Form>
