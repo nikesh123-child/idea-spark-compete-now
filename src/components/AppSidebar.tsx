@@ -10,6 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { LayoutDashboard, ShieldAlert, FileText, Settings, Rocket } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Link, useLocation } from "react-router-dom";
 
 const menuItems = [
   {
@@ -19,24 +20,25 @@ const menuItems = [
   },
   {
     title: "Findings",
-    url: "#",
+    url: "/findings",
     icon: ShieldAlert,
     label: "1",
   },
   {
     title: "Reports",
-    url: "#",
+    url: "/reports",
     icon: FileText,
   },
   {
     title: "Settings",
-    url: "#",
+    url: "/settings",
     icon: Settings,
   },
 ];
 
 export function AppSidebar() {
-  const activePath = "/";
+  const location = useLocation();
+  const activePath = location.pathname;
 
   return (
     <Sidebar>
@@ -55,7 +57,7 @@ export function AppSidebar() {
                   activePath === item.url && "bg-accent"
                 )}
               >
-                <a href={item.url} className="flex items-center justify-between w-full">
+                <Link to={item.url} className="flex items-center justify-between w-full">
                   <div className="flex items-center gap-2">
                     <item.icon className="h-4 w-4" />
                     <span>{item.title}</span>
@@ -65,7 +67,7 @@ export function AppSidebar() {
                       {item.label}
                     </Badge>
                   )}
-                </a>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
