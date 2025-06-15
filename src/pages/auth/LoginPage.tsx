@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Eye, EyeOff } from "lucide-react";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -27,6 +27,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const form = useForm<LoginFormValues>({
@@ -83,12 +84,33 @@ export default function LoginPage() {
               <FormItem>
                  <div className="flex items-center">
                   <FormLabel>Password</FormLabel>
-                  <Link to="#" className="ml-auto inline-block text-sm underline">
+                  <Link to="#" className="ml-auto inline-block text-sm underline" onClick={() => toast.info("Coming soon!")}>
                       Forgot your password?
                   </Link>
                 </div>
                 <FormControl>
-                  <Input type="password" {...field} />
+                  <div className="relative">
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="••••••••"
+                      {...field}
+                    />
+                    <button
+                      type="button"
+                      className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      tabIndex={-1}
+                    >
+                      {showPassword ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
+                      <span className="sr-only">
+                        {showPassword ? "Hide password" : "Show password"}
+                      </span>
+                    </button>
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
