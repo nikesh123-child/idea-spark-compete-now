@@ -12,9 +12,18 @@ export default function Layout() {
   useEffect(() => {
     // Add security headers when layout loads
     const addSecurityHeaders = () => {
-      // Prevent clickjacking
-      if (window.top !== window.self) {
-        window.top!.location = window.self.location;
+      // Prevent clickjacking - but only if we can safely access window.top
+      try {
+        if (window.top && window.top !== window.self) {
+          // Only attempt to redirect if we have permission
+          if (window.top.location && window.top.location.href) {
+            window.top.location = window.self.location;
+          }
+        }
+      } catch (error) {
+        // Silently handle cross-origin frame access errors
+        // This is expected in iframe environments like Lovable preview
+        console.log('Clickjacking protection skipped - running in iframe context');
       }
       
       // Clear sensitive data on page unload
