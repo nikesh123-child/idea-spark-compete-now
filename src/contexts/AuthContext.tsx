@@ -1,49 +1,22 @@
 
-import { createContext, useState, useEffect, useContext, ReactNode } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { Session, User } from '@supabase/supabase-js';
+import { createContext, useContext, ReactNode } from 'react';
+import { useSecureAuth, SecureAuthState } from '@/hooks/useSecureAuth';
 
-type AuthContextType = {
-  session: Session | null;
-  user: User | null;
-  loading: boolean;
+type AuthContextType = SecureAuthState & {
+  secureLogin: (email: string, password: string) => Promise<void>;
+  secureLogout: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [session, setSession] = useState<Session | null>(null);
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const secureAuth = useSecureAuth();
 
-  useEffect(() => {
-    setLoading(true);
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
-
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        setSession(session);
-        setUser(session.user);
-      }
-      setLoading(false);
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
-
-  const value = {
-    session,
-    user,
-    loading,
-  };
-
-  return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={secureAuth}>
+      {!secureAuth.loading && children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => {
