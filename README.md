@@ -1,15 +1,14 @@
 
-# Aegis AI - Security Dashboard
+## Aegis AI - Security Dashboard
 
 Welcome to Aegis AI, a modern web application for monitoring digital assets and managing security findings. This dashboard provides a centralized view of your organization's security posture, allowing teams to track vulnerabilities, manage assets, and respond to threats effectively.
 
-This project was built with [Lovable](https://lovable.dev).
-
 ## ✨ Features
 
-Our security dashboard is packed with features designed to give you a comprehensive overview of your security landscape:
+ Our security dashboard is packed with features designed to give you a comprehensive overview of your security landscape:
 
-- **Secure User Authentication:** The application includes a complete authentication system powered by Supabase. Users can sign up, log in, and reset their passwords securely.
+- **Secure User Authentication:**
+ - The application includes a complete authentication system powered by Supabase. Users can sign up, log in, and reset their passwords securely.
 
 - **Dashboard Overview:** Get a high-level view of your security posture as soon as you log in. The dashboard displays key metrics like:
   - Total number of security findings.
@@ -17,7 +16,9 @@ Our security dashboard is packed with features designed to give you a comprehens
   - A summary of your monitored digital assets.
   - Recent activity to keep you updated on the latest events.
 
-- **Findings Management:** A dedicated section to manage all identified security vulnerabilities. You can:
+- **Findings Management:**
+  - A dedicated section to manage all identified security vulnerabilities. You can:  
+  
   - View a detailed list of all findings.
   - Search and filter findings to quickly locate specific issues.
   - Drill down into each finding for in-depth details, including description, severity, status, and the affected assets.
